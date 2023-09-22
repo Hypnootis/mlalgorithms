@@ -27,16 +27,13 @@ portnames = ["PAN", "AMS", "CAS", "NYC", "HEL"]
  
 def permutations(route, ports):
     # Write your recursive code here
-    head = route
-    tail = ports
-    for i in range(len(tail)):
-        head.append(tail[i])
-        newTail = tail
-        if len(newTail) != 0:
-            newTail.pop(0)
-        permutations(head, newTail)
+    if len(ports) >= 1:
+        for i in range(len(ports)):
+            permutations(route+[ports[i]], ports[:i] + ports[i+1:])
+
     # Print the port names in route when the recursion terminates
-    print(' '.join([portnames[i] for i in route]))
+    else:
+        print(' '.join([portnames[i] for i in route]))
 
 # This will start the recursion with 0 ("PAN") as the first stop
 permutations([0], list(range(1, len(portnames))))
